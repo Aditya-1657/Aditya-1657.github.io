@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Aditya Yadav — Data Analyst</title>
+<meta name="description" content="Aditya Yadav — Junior Data Analyst portfolio. SQL, Excel, Power BI, EDA, dashboarding and predictive modeling." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+  :root{
+    --navy-deep:#081428;
+    --navy:#0E2247;
+    --navy-mid:#16305E;
+    --white:#FFFFFF;
+    --paper:#F4F6FA;
+    --steel:#6E7A8A;
+    --line:#DDE3EC;
+    --teal:#2FB5A3;
+    --amber:#E8A33D;
+    --coral:#E8734A;
+    --radius:14px;
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--navy-deep);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,h4{
+    font-family:'Space Grotesk',sans-serif;
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+  .mono{font-family:'JetBrains Mono',monospace;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px;}
+  img,svg{max-width:100%;display:block;}
+  ::selection{background:var(--teal);color:var(--white);}
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    background:rgba(8,20,40,0.92);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  nav.wrap{
+    display:flex;align-items:center;justify-content:space-between;
+    height:72px;
+  }
+  .brand{
+    color:var(--white);font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.15rem;
+    display:flex;align-items:center;gap:10px;
+  }
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px rgba(47,181,163,0.2);}
+  .navlinks{display:flex;gap:36px;list-style:none;margin:0;padding:0;}
+  .navlinks a{
+    color:rgba(255,255,255,0.75);font-size:0.92rem;font-weight:500;
+    position:relative;padding:4px 0;transition:color .2s ease;
+  }
+  .navlinks a::after{
+    content:"";position:absolute;left:0;bottom:-2px;width:0;height:2px;background:var(--teal);
+    transition:width .25s ease;
+  }
+  .navlinks a:hover{color:var(--white);}
+  .navlinks a:hover::after{width:100%;}
+  .nav-cta{
+    border:1px solid rgba(255,255,255,0.25);color:var(--white);
+    padding:9px 18px;border-radius:100px;font-size:0.88rem;font-weight:500;
+    transition:all .2s ease;
+  }
+  .nav-cta:hover{background:var(--teal);border-color:var(--teal);}
+  .burger{display:none;background:none;border:none;color:var(--white);font-size:1.5rem;cursor:pointer;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:linear-gradient(165deg,var(--navy-deep) 0%,var(--navy) 55%,var(--navy-mid) 100%);
+    padding:168px 0 96px;position:relative;overflow:hidden;
+  }
+  .hero::before{
+    content:"";position:absolute;inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px);
+    background-size:44px 44px;
+    mask-image:radial-gradient(ellipse 70% 60% at 60% 20%, black, transparent);
+  }
+  .hero-inner{position:relative;z-index:2;display:grid;grid-template-columns:1.05fr 0.95fr;gap:48px;align-items:center;}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    color:var(--teal);font-family:'JetBrains Mono',monospace;font-size:0.78rem;
+    letter-spacing:0.08em;text-transform:uppercase;margin-bottom:22px;
+    background:rgba(47,181,163,0.1);border:1px solid rgba(47,181,163,0.3);
+    padding:6px 14px;border-radius:100px;
+  }
+  .hero h1{
+    color:var(--white);font-size:clamp(2.4rem,5vw,3.6rem);line-height:1.08;font-weight:700;
+  }
+  .hero h1 span{color:var(--teal);}
+  .hero p.lead{
+    color:rgba(255,255,255,0.72);font-size:1.08rem;line-height:1.7;max-width:520px;margin:22px 0 34px;
+  }
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;padding:14px 26px;border-radius:10px;
+    font-weight:600;font-size:0.94rem;transition:all .2s ease;cursor:pointer;border:none;
+  }
+  .btn-primary{background:var(--teal);color:var(--navy-deep);}
+  .btn-primary:hover{background:#3ecab6;transform:translateY(-2px);}
+  .btn-ghost{border:1px solid rgba(255,255,255,0.28);color:var(--white);}
+  .btn-ghost:hover{background:rgba(255,255,255,0.08);transform:translateY(-2px);}
+
+  /* dashboard mock */
+  .dash{
+    background:rgba(255,255,255,0.045);
+    border:1px solid rgba(255,255,255,0.12);
+    border-radius:var(--radius);padding:22px;
+    box-shadow:0 30px 60px -20px rgba(0,0,0,0.5);
+    backdrop-filter:blur(6px);
+  }
+  .dash-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+  .dash-head .dots{display:flex;gap:6px;}
+  .dash-head .dots span{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,0.25);}
+  .dash-head .title{color:rgba(255,255,255,0.55);font-family:'JetBrains Mono',monospace;font-size:0.72rem;}
+  .kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
+  .kpi{
+    background:rgba(255,255,255,0.055);border:1px solid rgba(255,255,255,0.08);
+    border-radius:10px;padding:14px 16px;
+  }
+  .kpi .num{color:var(--white);font-family:'JetBrains Mono',monospace;font-size:1.5rem;font-weight:700;}
+  .kpi .lbl{color:rgba(255,255,255,0.5);font-size:0.72rem;margin-top:4px;text-transform:uppercase;letter-spacing:0.04em;}
+  .kpi.accent .num{color:var(--teal);}
+  .kpi.accent2 .num{color:var(--amber);}
+  .chart-box{
+    background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);
+    border-radius:10px;padding:14px;height:150px;
+  }
+
+  section{padding:104px 0;}
+  .section-tag{
+    font-family:'JetBrains Mono',monospace;color:var(--teal);font-size:0.78rem;
+    text-transform:uppercase;letter-spacing:0.08em;font-weight:600;
+  }
+  .section-title{font-size:clamp(1.7rem,3vw,2.3rem);margin-top:10px;color:var(--navy-deep);}
+  .section-head{max-width:640px;margin-bottom:56px;}
+  .section-head p{color:var(--steel);margin-top:14px;line-height:1.7;font-size:1.02rem;}
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:56px;align-items:start;}
+  .about-card{
+    background:var(--white);border:1px solid var(--line);border-radius:var(--radius);
+    padding:32px;
+  }
+  .about-card .avatar{
+    width:64px;height:64px;border-radius:14px;background:linear-gradient(135deg,var(--navy),var(--teal));
+    display:flex;align-items:center;justify-content:center;color:var(--white);font-family:'Space Grotesk';
+    font-weight:700;font-size:1.4rem;margin-bottom:20px;
+  }
+  .about-card h3{font-size:1.3rem;margin-bottom:6px;}
+  .about-card .role{color:var(--teal);font-weight:600;font-size:0.92rem;margin-bottom:18px;}
+  .contact-list{display:flex;flex-direction:column;gap:12px;margin-top:20px;padding-top:20px;border-top:1px solid var(--line);}
+  .contact-list a{
+    display:flex;align-items:center;gap:10px;font-size:0.9rem;color:var(--navy);font-weight:500;
+  }
+  .contact-list a:hover{color:var(--teal);}
+  .contact-list .ic{
+    width:30px;height:30px;border-radius:8px;background:var(--paper);display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .about-text p{color:var(--steel);line-height:1.85;font-size:1.02rem;margin-bottom:18px;}
+  .highlight-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:26px;}
+  .pill{
+    background:var(--white);border:1px solid var(--line);border-radius:100px;padding:9px 18px;
+    font-size:0.86rem;font-weight:600;color:var(--navy);display:flex;align-items:center;gap:8px;
+  }
+  .pill .dot{width:7px;height:7px;border-radius:50%;background:var(--teal);}
+
+  /* ---------- SKILLS ---------- */
+  .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .skill-card{
+    background:var(--white);border:1px solid var(--line);border-radius:var(--radius);
+    padding:26px;transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .skill-card:hover{transform:translateY(-4px);box-shadow:0 20px 40px -20px rgba(14,34,71,0.2);}
+  .skill-card .icon{
+    width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;
+  }
+  .skill-card h4{font-size:1.05rem;margin-bottom:10px;}
+  .skill-card .tags{display:flex;flex-wrap:wrap;gap:7px;}
+  .tag{
+    background:var(--paper);color:var(--navy);font-size:0.78rem;font-weight:500;
+    padding:5px 11px;border-radius:6px;border:1px solid var(--line);
+  }
+
+  /* ---------- PROJECTS ---------- */
+  .project-card{
+    background:var(--white);border:1px solid var(--line);border-radius:var(--radius);
+    overflow:hidden;margin-bottom:28px;display:grid;grid-template-columns:1fr 1fr;
+  }
+  .project-card:nth-child(even){}
+  .project-visual{
+    background:linear-gradient(155deg,var(--navy-deep),var(--navy-mid));
+    padding:28px;display:flex;flex-direction:column;justify-content:center;position:relative;
+  }
+  .project-visual .chart-wrap{height:220px;position:relative;}
+  .project-body{padding:38px;}
+  .project-num{font-family:'JetBrains Mono',monospace;color:var(--teal);font-size:0.8rem;font-weight:600;}
+  .project-body h3{font-size:1.35rem;margin:10px 0 14px;}
+  .project-body ul{padding-left:18px;margin:0 0 20px;color:var(--steel);line-height:1.75;}
+  .project-body li{margin-bottom:8px;}
+  .project-body li b{color:var(--navy-deep);}
+  .project-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;}
+  .project-link{
+    display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:0.92rem;color:var(--navy);
+    border-bottom:2px solid var(--teal);padding-bottom:2px;
+  }
+  .project-link:hover{color:var(--teal);}
+  .stat-strip{display:flex;gap:22px;margin-top:18px;flex-wrap:wrap;}
+  .stat-strip .s{color:var(--white);}
+  .stat-strip .s .n{font-family:'JetBrains Mono',monospace;font-size:1.6rem;font-weight:700;color:var(--teal);}
+  .stat-strip .s .l{font-size:0.72rem;color:rgba(255,255,255,0.55);text-transform:uppercase;letter-spacing:0.04em;margin-top:2px;}
+
+  /* ---------- TIMELINE (education/certs) ---------- */
+  .timeline-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;}
+  .tl-col h3{font-size:1.2rem;margin-bottom:24px;display:flex;align-items:center;gap:10px;}
+  .tl-col h3 .ic2{
+    width:34px;height:34px;border-radius:8px;background:var(--navy-deep);color:var(--teal);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .tl-item{
+    position:relative;padding-left:26px;padding-bottom:28px;border-left:2px solid var(--line);margin-left:6px;
+  }
+  .tl-item:last-child{border-color:transparent;padding-bottom:0;}
+  .tl-item::before{
+    content:"";position:absolute;left:-7px;top:2px;width:12px;height:12px;border-radius:50%;
+    background:var(--teal);border:3px solid var(--paper);
+  }
+  .tl-item .period{font-family:'JetBrains Mono',monospace;font-size:0.76rem;color:var(--teal);font-weight:600;}
+  .tl-item h4{font-size:1rem;margin:6px 0 3px;}
+  .tl-item .meta{color:var(--steel);font-size:0.88rem;}
+  .cert-card{
+    background:var(--white);border:1px solid var(--line);border-radius:10px;
+    padding:16px 18px;display:flex;align-items:center;gap:14px;margin-bottom:12px;
+  }
+  .cert-card .badge{
+    width:38px;height:38px;border-radius:8px;background:var(--paper);flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--navy);font-family:'Space Grotesk';
+  }
+  .cert-card .t{font-weight:600;font-size:0.94rem;color:var(--navy-deep);}
+  .cert-card .s{font-size:0.82rem;color:var(--steel);}
+
+  /* ---------- CONTACT / CTA ---------- */
+  .cta-section{
+    background:linear-gradient(155deg,var(--navy-deep),var(--navy-mid));
+    border-radius:24px;padding:64px 56px;text-align:center;position:relative;overflow:hidden;
+  }
+  .cta-section::before{
+    content:"";position:absolute;inset:0;
+    background-image:linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size:40px 40px;
+    mask-image:radial-gradient(ellipse 60% 100% at 50% 0%, black, transparent);
+  }
+  .cta-section h2{color:var(--white);font-size:clamp(1.7rem,3.4vw,2.5rem);position:relative;z-index:2;}
+  .cta-section p{color:rgba(255,255,255,0.68);max-width:520px;margin:16px auto 32px;position:relative;z-index:2;line-height:1.7;}
+  .cta-buttons{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative;z-index:2;}
+
+  footer{padding:40px 0;border-top:1px solid var(--line);}
+  .footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
+  .footer-inner p{color:var(--steel);font-size:0.86rem;}
+  .footer-links{display:flex;gap:22px;}
+  .footer-links a{color:var(--steel);font-size:0.86rem;font-weight:500;}
+  .footer-links a:hover{color:var(--teal);}
+
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  @media (max-width:920px){
+    .navlinks{display:none;}
+    .burger{display:block;}
+    .hero-inner{grid-template-columns:1fr;}
+    .about-grid{grid-template-columns:1fr;}
+    .skills-grid{grid-template-columns:1fr 1fr;}
+    .project-card{grid-template-columns:1fr;}
+    .timeline-grid{grid-template-columns:1fr;}
+    .cta-section{padding:48px 24px;}
+  }
+  @media (max-width:600px){
+    .wrap{padding:0 20px;}
+    .skills-grid{grid-template-columns:1fr;}
+    .kpi-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important;animation:none !important;}
+    html{scroll-behavior:auto;}
+  }
+  :focus-visible{outline:2px solid var(--teal);outline-offset:3px;}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <div class="brand"><span class="dot"></span>Aditya Yadav</div>
+    <ul class="navlinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#journey">Journey</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Let's talk</a>
+    <button class="burger" id="burgerBtn" aria-label="Open menu">☰</button>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-inner">
+    <div>
+      <div class="eyebrow">● Available for Data Analyst roles</div>
+      <h1>Turning raw data into <span>revenue‑ready</span> decisions.</h1>
+      <p class="lead">I'm Aditya — a junior data analyst who cleans messy datasets, builds Power BI dashboards, and finds the one insight that changes the business call. SQL, Excel, and EDA are my everyday tools.</p>
+      <div class="hero-ctas">
+        <a href="#projects" class="btn btn-primary">View my projects →</a>
+        <a href="#contact" class="btn btn-ghost">Get in touch</a>
+      </div>
+    </div>
+    <div class="dash reveal">
+      <div class="dash-head">
+        <span class="title">analyst_dashboard.pbix</span>
+        <div class="dots"><span></span><span></span><span></span></div>
+      </div>
+      <div class="kpi-grid">
+        <div class="kpi accent"><div class="num" data-count="1500" data-suffix="+">0</div><div class="lbl">Transactions cleaned</div></div>
+        <div class="kpi"><div class="num" data-count="7000" data-suffix="+">0</div><div class="lbl">Customer records analyzed</div></div>
+        <div class="kpi accent2"><div class="num" data-count="64" data-suffix="%">0</div><div class="lbl">Revenue concentration found</div></div>
+        <div class="kpi"><div class="num" data-count="0.84" data-suffix="" data-decimal="true">0</div><div class="lbl">Churn model ROC‑AUC</div></div>
+      </div>
+      <div class="chart-box"><canvas id="heroChart"></canvas></div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="about-card reveal">
+        <div class="avatar">AY</div>
+        <h3>Aditya Yadav</h3>
+        <div class="role">Junior Data Analyst</div>
+        <p style="color:var(--steel);font-size:0.94rem;line-height:1.7;">B.E. Computer Science, NIMS University Jaipur — CGPA 8.00/10.00</p>
+        <div class="contact-list">
+          <a href="tel:+918597154542"><span class="ic">📞</span> +91 8597154542</a>
+          <a href="mailto:yadityabtn@gmail.com"><span class="ic">✉️</span> yadityabtn@gmail.com</a>
+          <a href="#" id="linkedinLink"><span class="ic">in</span> LinkedIn profile</a>
+          <a href="#" id="githubLink"><span class="ic">⌥</span> GitHub projects</a>
+        </div>
+      </div>
+      <div class="about-text reveal">
+        <span class="section-tag">// About</span>
+        <h2 class="section-title" style="margin-bottom:22px;">Analytical, self-driven, and obsessed with clean data.</h2>
+        <p>I'm a junior data analyst with hands-on experience across SQL, Microsoft Excel, and Power BI — built through self-driven analysis projects rather than a single job title. I'm comfortable in every stage of the pipeline: cleaning messy, inconsistent datasets, running exploratory data analysis, and shipping dashboards that stakeholders actually use.</p>
+        <p>What I care about most is the translation step — turning a spreadsheet full of numbers into a recommendation a business can act on. Whether that's flagging which region drives most of the revenue, or telling a retention team exactly which customers are about to churn, I try to leave every analysis with a clear "so what."</p>
+        <div class="highlight-row">
+          <div class="pill"><span class="dot"></span>Data Cleaning & EDA</div>
+          <div class="pill"><span class="dot"></span>Power BI Dashboards</div>
+          <div class="pill"><span class="dot"></span>Predictive Modeling Basics</div>
+          <div class="pill"><span class="dot"></span>Stakeholder Communication</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills" style="background:var(--white);">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-tag">// Skills</span>
+      <h2 class="section-title">The toolkit behind every dashboard.</h2>
+      <p>From query to query-ready insight — the languages, tools, and frameworks I use to get from raw data to a decision.</p>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card reveal">
+        <div class="icon" style="background:#E9F8F5;">🗄️</div>
+        <h4>Programming & Query Languages</h4>
+        <div class="tags"><span class="tag">SQL</span><span class="tag">C</span><span class="tag">HTML</span></div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="icon" style="background:#FDF3E3;">📊</div>
+        <h4>BI & Data Analysis Tools</h4>
+        <div class="tags"><span class="tag">Power BI</span><span class="tag">Advanced Excel</span><span class="tag">Power Query</span><span class="tag">Pivot Tables</span><span class="tag">VLOOKUP / XLOOKUP</span><span class="tag">SUMIF / COUNTIF</span><span class="tag">Macros</span></div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="icon" style="background:#FCEBE4;">🔍</div>
+        <h4>Analysis Practice</h4>
+        <div class="tags"><span class="tag">Data Cleaning</span><span class="tag">EDA</span><span class="tag">Dashboard Development</span><span class="tag">Data Visualization</span><span class="tag">Data Validation</span></div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="icon" style="background:#E9F8F5;">🤖</div>
+        <h4>Machine Learning</h4>
+        <div class="tags"><span class="tag">ML Fundamentals</span><span class="tag">Predictive Modeling</span><span class="tag">Logistic Regression</span><span class="tag">Random Forest</span></div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="icon" style="background:#FDF3E3;">📋</div>
+        <h4>Documentation</h4>
+        <div class="tags"><span class="tag">BRD</span><span class="tag">FRD</span><span class="tag">JIRA</span></div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="icon" style="background:#FCEBE4;">🤝</div>
+        <h4>Core Competencies</h4>
+        <div class="tags"><span class="tag">Business Insights</span><span class="tag">Presentation</span><span class="tag">Stakeholder Collaboration</span><span class="tag">Problem-Solving</span><span class="tag">GenAI Tools</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-tag">// Projects</span>
+      <h2 class="section-title">Two datasets, two business decisions.</h2>
+      <p>Real analysis, real numbers — here's what I found and what I recommended.</p>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-visual">
+        <div class="chart-wrap"><canvas id="salesChart"></canvas></div>
+        <div class="stat-strip">
+          <div class="s"><div class="n">1,500+</div><div class="l">Transactions</div></div>
+          <div class="s"><div class="n">64%</div><div class="l">Of revenue, 1 region-category</div></div>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-num">01 / Excel · EDA</div>
+        <h3>Sales Performance Analysis</h3>
+        <ul>
+          <li>Cleaned and analyzed <b>1,500+ sales transactions</b> in Microsoft Excel — resolving duplicate records, missing values, and inconsistent entries to improve data accuracy and reliability.</li>
+          <li>Ran exploratory data analysis and found that <b>one region-category combination accounted for 64% of total revenue</b>, a concentration that reshaped how inventory and marketing spend should be allocated.</li>
+          <li>Presented findings to stakeholders, translating raw sales data into <b>clear, decision-ready recommendations</b> for inventory planning and targeted marketing.</li>
+        </ul>
+        <div class="project-tags">
+          <span class="tag">Microsoft Excel</span><span class="tag">Pivot Tables</span><span class="tag">EDA</span><span class="tag">Data Cleaning</span>
+        </div>
+        <a href="#" class="project-link" id="salesGithub">View on GitHub →</a>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-visual">
+        <div class="chart-wrap"><canvas id="churnChart"></canvas></div>
+        <div class="stat-strip">
+          <div class="s"><div class="n">42.7%</div><div class="l">Churn, month-to-month</div></div>
+          <div class="s"><div class="n">0.84</div><div class="l">ROC-AUC, best model</div></div>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-num">02 / SQL · Machine Learning</div>
+        <h3>Customer Churn Analysis</h3>
+        <ul>
+          <li>Analyzed a <b>7,000+ record telecom customer dataset</b> to identify key drivers of churn.</li>
+          <li>Found month-to-month contract customers churned at <b>42.7%</b>, versus just <b>2.8%</b> for two-year contracts — a 15x gap.</li>
+          <li>Built and compared <b>Logistic Regression and Random Forest</b> classifiers to predict churn, reaching <b>0.84 ROC-AUC</b>.</li>
+          <li>Ran EDA across 8+ customer attributes and translated the findings into <b>4 actionable retention recommendations</b>.</li>
+        </ul>
+        <div class="project-tags">
+          <span class="tag">SQL</span><span class="tag">Logistic Regression</span><span class="tag">Random Forest</span><span class="tag">EDA</span>
+        </div>
+        <a href="#" class="project-link" id="churnGithub">View on GitHub →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="journey" style="background:var(--white);">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-tag">// Journey</span>
+      <h2 class="section-title">Education & certifications.</h2>
+      <p>The academic foundation and applied learning behind the analysis.</p>
+    </div>
+    <div class="timeline-grid">
+      <div class="tl-col reveal">
+        <h3><span class="ic2">🎓</span> Education</h3>
+        <div class="tl-item">
+          <div class="period">2022 — 2026</div>
+          <h4>Bachelor of Engineering, Computer Science</h4>
+          <div class="meta">NIMS University, Jaipur · CGPA 8.00/10.00 (through 7th semester)</div>
+        </div>
+        <div class="tl-item">
+          <div class="period">2022</div>
+          <h4>Senior Secondary (Class XII)</h4>
+          <div class="meta">The Vivekananda School, Delhi · 68%</div>
+        </div>
+        <div class="tl-item">
+          <div class="period">2020</div>
+          <h4>Secondary School (Class X)</h4>
+          <div class="meta">The Gurukul Nilokheri, Haryana · 91%</div>
+        </div>
+      </div>
+      <div class="tl-col reveal">
+        <h3><span class="ic2">🏅</span> Certifications</h3>
+        <div class="cert-card">
+          <div class="badge">D</div>
+          <div><div class="t">Data Analytics Job Simulation</div><div class="s">Deloitte</div></div>
+        </div>
+        <div class="cert-card">
+          <div class="badge">B</div>
+          <div><div class="t">AI Tools Learning</div><div class="s">Be10X</div></div>
+        </div>
+        <div class="cert-card">
+          <div class="badge">C</div>
+          <div><div class="t">Machine Learning</div><div class="s">CodeAlpha</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="cta-section reveal">
+      <h2>Have a dataset that needs a story?</h2>
+      <p>I'm currently looking for a Data Analyst role where I can turn dashboards into decisions. Let's talk about your data.</p>
+      <div class="cta-buttons">
+        <a href="mailto:yadityabtn@gmail.com" class="btn btn-primary">✉️ Email me</a>
+        <a href="tel:+918597154542" class="btn btn-ghost">📞 Call me</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-inner">
+    <p>© 2026 Aditya Yadav. Built with data, Excel, and a little Power BI polish.</p>
+    <div class="footer-links">
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="mailto:yadityabtn@gmail.com">Email</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ---- EDIT-YOUR-LINKS: update these two before publishing ----
+document.getElementById('linkedinLink').href = "https://www.linkedin.com/in/aditya-lnk";
+document.getElementById('githubLink').href = "https://github.com/Aditya-1657";
+document.getElementById('salesGithub').href = "https://github.com/Aditya-1657/sales-performance-analysis";
+document.getElementById('churnGithub').href = "https://github.com/Aditya-1657/customer-churn-analysis";
+
+// ---- mobile nav ----
+const burger = document.getElementById('burgerBtn');
+const navlinks = document.querySelector('.navlinks');
+burger.addEventListener('click', () => {
+  if (navlinks.style.display === 'flex') {
+    navlinks.style.display = 'none';
+  } else {
+    navlinks.style.display = 'flex';
+    navlinks.style.position = 'absolute';
+    navlinks.style.top = '72px';
+    navlinks.style.left = '0';
+    navlinks.style.right = '0';
+    navlinks.style.background = 'rgba(8,20,40,0.98)';
+    navlinks.style.flexDirection = 'column';
+    navlinks.style.padding = '20px 32px';
+    navlinks.style.gap = '18px';
+  }
+});
+navlinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  if (window.innerWidth <= 920) navlinks.style.display = 'none';
+}));
+
+// ---- scroll reveal ----
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+}, { threshold: 0.15 });
+revealEls.forEach(el => io.observe(el));
+
+// ---- animated counters ----
+const counters = document.querySelectorAll('[data-count]');
+const counterIO = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const el = entry.target;
+    const target = parseFloat(el.dataset.count);
+    const isDecimal = el.dataset.decimal === "true";
+    const suffix = el.dataset.suffix || "";
+    let cur = 0;
+    const steps = 40;
+    const inc = target / steps;
+    const timer = setInterval(() => {
+      cur += inc;
+      if (cur >= target) { cur = target; clearInterval(timer); }
+      el.textContent = (isDecimal ? cur.toFixed(2) : Math.round(cur)) + suffix;
+    }, 30);
+    counterIO.unobserve(el);
+  });
+}, { threshold: 0.4 });
+counters.forEach(c => counterIO.observe(c));
+
+// ---- chart theme ----
+Chart.defaults.color = 'rgba(255,255,255,0.55)';
+Chart.defaults.font.family = "'JetBrains Mono', monospace";
+Chart.defaults.font.size = 10;
+
+// hero mini chart — quarterly revenue trend
+new Chart(document.getElementById('heroChart'), {
+  type: 'line',
+  data: {
+    labels: ['Q1','Q2','Q3','Q4'],
+    datasets: [{
+      data: [22, 35, 31, 48],
+      borderColor: '#2FB5A3',
+      backgroundColor: 'rgba(47,181,163,0.15)',
+      fill: true, tension: 0.4, pointRadius: 3,
+      pointBackgroundColor: '#2FB5A3', borderWidth: 2
+    }]
+  },
+  options: {
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{display:false} },
+    scales:{
+      x:{ grid:{color:'rgba(255,255,255,0.06)'} },
+      y:{ grid:{color:'rgba(255,255,255,0.06)'}, ticks:{display:false} }
+    }
+  }
+});
+
+// sales project chart — region-category revenue share
+new Chart(document.getElementById('salesChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Top region-category', 'All other segments'],
+    datasets: [{
+      data: [64, 36],
+      backgroundColor: ['#2FB5A3', 'rgba(255,255,255,0.12)'],
+      borderWidth: 0
+    }]
+  },
+  options: {
+    responsive:true, maintainAspectRatio:false, cutout:'72%',
+    plugins:{ legend:{ position:'bottom', labels:{ color:'rgba(255,255,255,0.6)', boxWidth:10, padding:14 } } }
+  }
+});
+
+// churn project chart — churn rate by contract type
+new Chart(document.getElementById('churnChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Month-to-month', 'One year', 'Two year'],
+    datasets: [{
+      data: [42.7, 11.3, 2.8],
+      backgroundColor: ['#E8734A', '#E8A33D', '#2FB5A3'],
+      borderRadius: 6, maxBarThickness: 44
+    }]
+  },
+  options: {
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{display:false} },
+    scales:{
+      x:{ grid:{display:false} },
+      y:{ grid:{color:'rgba(255,255,255,0.06)'}, ticks:{ callback:(v)=>v+'%' } }
+    }
+  }
+});
+</script>
+</body>
+</html>
